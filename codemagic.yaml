@@ -9,19 +9,28 @@ workflows:
       android_signing:
         - keystore: newtaxi
       java: 17
+
     scripts:
       - name: Limpar e preparar build
         script: |
+          echo "🔹 Dando permissão ao gradlew e limpando projeto..."
+          chmod +x gradlew
           ./gradlew clean
+
       - name: Build APK Release
         script: |
+          echo "🔹 Gerando APK Release..."
           ./gradlew assembleRelease
+
       - name: Build AAB (Bundle) Release
         script: |
+          echo "🔹 Gerando AAB Release..."
           ./gradlew bundleRelease
+
     artifacts:
       - app/build/outputs/**/*.apk
       - app/build/outputs/**/*.aab
+
     publishing:
       email:
         recipients:
